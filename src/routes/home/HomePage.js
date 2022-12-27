@@ -1,16 +1,16 @@
 import React from "react";
-import { useTodos } from "./useTodos";
-import { TodoCounter } from "../TodoCounter";
-import { TodoSearch } from "../TodoSearch";
-import { CreateTodoButton } from "../CreateTodoButton";
-import { TodoList } from "../TodoList";
-import { TodoItem } from "../TodoItem";
-import { Modal } from "../Modal";
-import { TodoForm } from "../TodoForm";
-import { TodoHeader } from "../TodoHeader";
-import { ChangeAlert } from "../ChangeAlert";
+import { useTodos } from "../useTodos";
+import { TodoCounter } from "../../ui/TodoCounter";
+import { TodoSearch } from "../../ui/TodoSearch";
+import { CreateTodoButton } from "../../ui/CreateTodoButton";
+import { TodoList } from "../../ui/TodoList";
+import { TodoItem } from "../../ui/TodoItem";
+import { Modal } from "../../ui/Modal";
+import { TodoForm } from "../../ui/TodoForm";
+import { TodoHeader } from "../../ui/TodoHeader";
+import { ChangeAlert } from "../../ui/ChangeAlert";
 
-function App() {
+function HomePage() {
   const { state, stateUpdaters } = useTodos();
 
   const {
@@ -50,23 +50,15 @@ function App() {
         onEmptySearchResults={(searchText) => (
           <p>No hay resultados para {searchText}</p>
         )}
-        /* render={(todo) => (
-          <TodoItem
-            key={todo.text}
-            text={todo.text}
-            completed={todo.completed}
-            onComplete={() => completeTodo(todo.text)}
-            onDelete={() => deleteTodo(todo.text)}
-          />
-        )} */
       >
         {(todo) => (
           <TodoItem
-            key={todo.text}
+            key={todo.id}
             text={todo.text}
             completed={todo.completed}
-            onComplete={() => completeTodo(todo.text)}
-            onDelete={() => deleteTodo(todo.text)}
+            onComplete={() => completeTodo(todo.id)}
+            onDelete={() => deleteTodo(todo.id)}
+            onEdit={() => console.log("editar todo")}
           />
         )}
       </TodoList>
@@ -84,4 +76,4 @@ function App() {
   );
 }
 
-export default App;
+export { HomePage };
