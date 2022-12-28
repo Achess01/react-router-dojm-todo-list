@@ -11,7 +11,6 @@ function useTodos() {
   } = useLocalStorage("TODOS_V2", []);
 
   const [searchValue, setSearchValue] = useState("");
-  const [openModal, setOpenModal] = useState(false);
   const completedTodos = todos.filter((todo) => !!todo.completed).length;
   const totalTodos = todos.length;
 
@@ -36,6 +35,14 @@ function useTodos() {
     }
   };
 
+  const editTodo = (id, newText) => {
+    const todoIndex = todos.findIndex((todo) => todo.id === id);
+    if (todoIndex >= 0) {
+      const newTodos = [...todos];
+      newTodos[todoIndex].text = newText;
+      saveTodos(newTodos);
+    }
+  };
   const deleteTodo = (id) => {
     const todoIndex = todos.findIndex((todo) => todo.id === id);
     if (todoIndex >= 0) {
@@ -43,6 +50,11 @@ function useTodos() {
       newTodos.splice(todoIndex, 1);
       saveTodos(newTodos);
     }
+  };
+
+  const getTodo = (id) => {
+    const todo = todos.find((todo) => todo.id === id);
+    return todo;
   };
 
   const addTodo = (text) => {
@@ -63,7 +75,7 @@ function useTodos() {
     completedTodos,
     searchValue,
     searchedTodos,
-    openModal,
+    getTodo,
   };
 
   const stateUpdaters = {
@@ -71,7 +83,7 @@ function useTodos() {
     completeTodo,
     deleteTodo,
     addTodo,
-    setOpenModal,
+    editTodo,
     synchronizeTodos,
   };
 
