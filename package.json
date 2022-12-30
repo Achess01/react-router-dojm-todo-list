@@ -1,5 +1,5 @@
 {
-  "name": "curso-react-router-proyecto2",
+  "name": "react-router-dom-todo-list",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -38,7 +38,7 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://achess.github.io/curso-react-router-proyecto2",
+  "homepage": "https://achess.github.io/react-router-dom-todo-list",
   "devDependencies": {
     "gh-pages": "^4.0.0"
   }
