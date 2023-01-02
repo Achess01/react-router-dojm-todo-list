@@ -20,6 +20,7 @@ function HomePage() {
     totalTodos,
     searchValue,
     completedTodos,
+    searchParam,
   } = state;
 
   const {
@@ -34,7 +35,11 @@ function HomePage() {
     <React.Fragment>
       <TodoHeader loading={loading}>
         <TodoCounter totalTodos={totalTodos} completedTodos={completedTodos} />
-        <TodoSearch searchValue={searchValue} setSearchValue={setSearchValue} />
+        <TodoSearch
+          searchValue={searchValue}
+          setSearchValue={setSearchValue}
+          searchParam={searchParam}
+        />
       </TodoHeader>
       <TodoList
         searchText={searchValue}
@@ -46,7 +51,7 @@ function HomePage() {
         onLoading={() => <p>Estamos cargando...</p>}
         onEmptyTodos={() => <p>¡Crea tu primer TODO!</p>}
         onEmptySearchResults={(searchText) => (
-          <p>No hay resultados para {searchText}</p>
+          <p>No hay resultados para {searchText.get(searchParam)}</p>
         )}
       >
         {(todo) => (
@@ -56,9 +61,7 @@ function HomePage() {
             completed={todo.completed}
             onComplete={() => completeTodo(todo.id)}
             onDelete={() => deleteTodo(todo.id)}
-            onEdit={() =>
-              navigate(`/edit/${todo.id}`, { state: { todo } })
-            }
+            onEdit={() => navigate(`/edit/${todo.id}`, { state: { todo } })}
           />
         )}
       </TodoList>

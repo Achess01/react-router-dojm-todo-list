@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useLocalStorage } from "./useLocaleStorage";
+
+const SEARCH = "search";
 
 function useTodos() {
   const {
@@ -10,18 +12,18 @@ function useTodos() {
     synchronizeItem: synchronizeTodos,
   } = useLocalStorage("TODOS_V2", []);
 
-  const [searchValue, setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useSearchParams();
   const completedTodos = todos.filter((todo) => !!todo.completed).length;
   const totalTodos = todos.length;
 
   let searchedTodos = [];
 
-  if (!searchValue.length >= 1) {
+  if (!searchValue.get(SEARCH)?.length >= 1) {
     searchedTodos = todos;
   } else {
     searchedTodos = todos.filter((todo) => {
       const todoText = todo.text.toLowerCase();
-      const searchText = searchValue.toLowerCase();
+      const searchText = searchValue.get(SEARCH).toLowerCase();
       return todoText.includes(searchText);
     });
   }
@@ -76,6 +78,7 @@ function useTodos() {
     searchValue,
     searchedTodos,
     getTodo,
+    searchParam: SEARCH,
   };
 
   const stateUpdaters = {
